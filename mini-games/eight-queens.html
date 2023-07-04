@@ -21,9 +21,11 @@
 <script type="module">
     import {Chessboard} from "cm-chessboard/src/Chessboard.js"
     import {EightQueens} from "src/eight-queens/EightQueens.js"
+    import {FEN} from "cm-chessboard/src/Chessboard.js"
 
     const board = new Chessboard(document.getElementById("board"), {
         assetsUrl: "../node_modules/cm-chessboard/assets/",
+        // position: FEN.start,
         style: {},
         extensions: [{class: EightQueens}]
     })
