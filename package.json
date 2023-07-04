@@ -1,0 +1,28 @@
+{
+  "name": "cm-chessboard-mini-games",
+  "version": "1.0.0",
+  "description": "Mini games as extensions for the cm-chessboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaack/cm-chessboard-mini-games.git"
+  },
+  "keywords": [
+    "js",
+    "es6",
+    "cm-chessboard",
+    "chess"
+  ],
+  "author": "shaack.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shaack/cm-chessboard-mini-games/issues"
+  },
+  "homepage": "https://github.com/shaack/cm-chessboard-mini-games#readme",
+  "dependencies": {
+    "cm-chessboard": "^7.7.3"
+  }
+}

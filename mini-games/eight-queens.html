@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/styles/screen.css"/>
+    <title>Document Title</title>
+    <script type="importmap">
+{
+  "imports": {
+    "cm-chessboard/": "../node_modules/cm-chessboard/",
+    "src/": "../src/"
+  }
+}
+</script>
+</head>
+<body>
+<h1>Eight Queens Problem</h1>
+<p>Place eight queens on the chessboard so that no two queens attack each other.</p>
+<div id="board" style="width: 100%"></div>
+<script type="module">
+    import {Chessboard} from "cm-chessboard/src/Chessboard.js"
+    import {EightQueens} from "src/eight-queens/EightQueens.js"
+
+    const board = new Chessboard(document.getElementById("board"), {
+        assetsUrl: "../node_modules/cm-chessboard/assets/",
+        style: {},
+        extensions: [{class: EightQueens}]
+    })
+</script>
+
+</body>
+</html>
