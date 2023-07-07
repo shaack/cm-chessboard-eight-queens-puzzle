@@ -11,17 +11,14 @@ export class EightQueens extends Extension {
         super(chessboard)
         chessboard.addExtension(Markers)
         chessboard.initialized.then(() => {
-            chessboard.setPosition("8/8/8/8/8/8/8/8")
-            chessboard.enableMoveInput((event) => {
-                console.log(event)
-                if (event.type === INPUT_EVENT_TYPE.moveInputStarted) {
-                    return true
-                }
-                if (event.type === INPUT_EVENT_TYPE.validateMoveInput) {
-                    const pieceTo = chessboard.getPiece(event.squareTo)
-                    return !pieceTo
-                }
-                if (event.type === INPUT_EVENT_TYPE.moveInputFinished) {
+            chessboard.enableSquareSelect((event) => {
+                console.log(event.mouseEvent.type)
+                if(event.mouseEvent.type === "mousedown") {
+                    if(this.chessboard.getPiece(event.square)) {
+                        this.chessboard.setPiece(event.square, null)
+                    } else {
+                        this.chessboard.setPiece(event.square, "bq")
+                    }
                     this.markThreatened()
                 }
             })
