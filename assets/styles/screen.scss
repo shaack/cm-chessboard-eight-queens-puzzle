@@ -1,3 +1,80 @@
 @import "../../node_modules/cm-chessboard/assets/chessboard.css";
 @import "../../node_modules/cm-chessboard/assets/extensions/markers/markers.css";
 @import "../../node_modules/extreme-minimal-css/styles/screen.scss";
+
+.board-eight-queens {
+  .html-layer {
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      line-height: 1.2;
+      color: #ffea64;
+      font-weight: bold;
+      font-size: 8vw;
+      cursor: pointer;
+      text-shadow: 0 0 10px #000, 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .fx-won {
+    animation: won 1s ease-in-out;
+  }
+
+  @keyframes won {
+    from {
+      scale: 0;
+    }
+    to {
+      scale: 1;
+    }
+  }
+
+  .fx-fade-in {
+    animation: fade-in 1s ease-in-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fx-fade-out {
+    animation: fade-out 1s ease-in-out;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .fx-vanish {
+    animation: vanish 1s ease-in-out;
+  }
+
+  @keyframes vanish {
+    from {
+      opacity: 1;
+      scale: 1;
+    }
+    to {
+      opacity: 0;
+      scale: 2;
+    }
+  }
+
+}

@@ -6,11 +6,17 @@ import {Extension} from "cm-chessboard/src/model/Extension.js"
 import {MARKER_TYPE, Markers} from "cm-chessboard/src/extensions/markers/Markers.js"
 import {Position} from "cm-chessboard/src/model/Position.js"
 import {MOVE_CANCELED_REASON} from "cm-chessboard/src/view/VisualMoveInput.js"
+import {HtmlLayer} from "cm-chessboard/src/extensions/html-layer/Htmllayer.js"
 
 export class EightQueens extends Extension {
-    constructor(chessboard) {
+    constructor(chessboard, props = {}) {
         super(chessboard)
+        this.props = {
+            wonText: "Very good<br/>you did it!"
+        }
+        Object.assign(this.props, props)
         chessboard.addExtension(Markers)
+        chessboard.addExtension(HtmlLayer)
         chessboard.initialized.then(() => {
             this.clickListener = this.onSquareClick.bind(this)
             chessboard.context.addEventListener("click", this.clickListener)
@@ -36,7 +42,7 @@ export class EightQueens extends Extension {
         const square = event.target.getAttribute("data-square")
         if (square && !this.chessboard.getPiece(square)) {
             const pieces = this.chessboard.state.position.getPieces()
-            if(pieces.length < 8) {
+            if (pieces.length < 8) {
                 this.chessboard.setPiece(square, "bq")
                 this.markThreatened()
             }
@@ -46,6 +52,7 @@ export class EightQueens extends Extension {
     markThreatened() {
         this.chessboard.removeMarkers()
         let i = 0
+        let threadsFound = 0
         for (let square of this.chessboard.state.position.squares) {
             if (square) {
                 // mark all squares threatened by this piece
@@ -54,10 +61,34 @@ export class EightQueens extends Extension {
                 const square = "" + rank + file
                 if (this.isThreatened(square)) {
                     this.chessboard.addMarker(MARKER_TYPE.circleDanger, square)
+                    threadsFound++
                 }
             }
             i++
         }
+        if (threadsFound === 0) {
+            const pieces = this.chessboard.state.position.getPieces()
+            if (pieces.length === 8) {
+                this.wonAnimation()
+            }
+        }
+    }
+
+    wonAnimation() {
+        const layer = this.chessboard.addHtmlLayer(`<div class='text fx-won'><div>${this.props.wonText}</div></div>`)
+        const text = layer.querySelector("div.text")
+        layer.classList.add("fx-fade-in")
+        setTimeout(() => {
+            layer.addEventListener("click", () => {
+                text.classList.remove("fx-won")
+                layer.classList.add("fx-fade-in")
+                text.classList.add("fx-vanish")
+                layer.classList.add("fx-fade-out")
+                setTimeout(() => {
+                    this.chessboard.removeHtmlLayer(layer)
+                }, 1000)
+            })
+        }, 1000)
     }
 
     isThreatened(square) {
