@@ -24,6 +24,7 @@
   "homepage": "https://github.com/shaack/cm-chessboard-mini-games#readme",
   "dependencies": {
     "cm-chess": "^3.3.2",
-    "cm-chessboard": "^7.7.7"
+    "cm-chessboard": "^7.7.11",
+    "extreme-minimal-css": "^1.0.3"
   }
 }
