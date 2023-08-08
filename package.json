@@ -1,14 +1,14 @@
 {
-  "name": "cm-chessboard-mini-games",
+  "name": "cm-chessboard-eight-queens-puzzle",
   "version": "1.0.2",
-  "description": "Mini games as extensions for the cm-chessboard",
+  "description": "TheeEight queens puzzle as an extensions for the cm-chessboard",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shaack/cm-chessboard-mini-games.git"
+    "url": "git+https://github.com/shaack/cm-chessboard-eight-queens-puzzle.git"
   },
   "keywords": [
     "js",
@@ -19,9 +19,9 @@
   "author": "shaack.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shaack/cm-chessboard-mini-games/issues"
+    "url": "https://github.com/shaack/cm-chessboard-eight-queens-puzzle/issues"
   },
-  "homepage": "https://github.com/shaack/cm-chessboard-mini-games#readme",
+  "homepage": "https://github.com/shaack/cm-chessboard-eight-queens-puzzle#readme",
   "dependencies": {
     "cm-chessboard": "^7.8.2",
     "extreme-minimal-css": "^1.0.3"
