@@ -1,5 +1,7 @@
 /**
- * @author Stefan Haack (https://shaack.com), all rights reserved
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/cm-chessboard-eight-queens-puzzle
+ * License: MIT, see file 'LICENSE'
  */
 import {INPUT_EVENT_TYPE} from "cm-chessboard/src/Chessboard.js"
 import {Extension} from "cm-chessboard/src/model/Extension.js"
