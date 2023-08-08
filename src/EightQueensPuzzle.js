@@ -10,7 +10,7 @@ import {Position} from "cm-chessboard/src/model/Position.js"
 import {MOVE_CANCELED_REASON} from "cm-chessboard/src/view/VisualMoveInput.js"
 import {HtmlLayer} from "cm-chessboard/src/extensions/html-layer/Htmllayer.js"
 
-export class EightQueens extends Extension {
+export class EightQueensPuzzle extends Extension {
     constructor(chessboard, props = {}) {
         super(chessboard)
         this.props = {

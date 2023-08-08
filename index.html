@@ -23,12 +23,12 @@
 <div class="board board-eight-queens"></div>
 <script type="module">
     import {Chessboard} from "cm-chessboard/src/Chessboard.js"
-    import {EightQueens} from "src/EightQueens.js"
+    import {EightQueensPuzzle} from "src/EightQueensPuzzle.js"
 
     new Chessboard(document.querySelector(".board-eight-queens"), {
         assetsUrl: "../node_modules/cm-chessboard/assets/",
         style: {showCoordinates: true},
-        extensions: [{class: EightQueens}]
+        extensions: [{class: EightQueensPuzzle}]
     })
 </script>
 
