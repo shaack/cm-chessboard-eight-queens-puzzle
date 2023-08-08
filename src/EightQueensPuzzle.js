@@ -8,7 +8,7 @@ import {Extension} from "cm-chessboard/src/model/Extension.js"
 import {MARKER_TYPE, Markers} from "cm-chessboard/src/extensions/markers/Markers.js"
 import {Position} from "cm-chessboard/src/model/Position.js"
 import {MOVE_CANCELED_REASON} from "cm-chessboard/src/view/VisualMoveInput.js"
-import {HtmlLayer} from "cm-chessboard/src/extensions/html-layer/Htmllayer.js"
+import {HtmlLayer} from "cm-chessboard/src/extensions/html-layer/HtmlLayer.js"
 
 export class EightQueensPuzzle extends Extension {
     constructor(chessboard, props = {}) {
