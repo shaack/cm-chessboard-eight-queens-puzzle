@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/shaack/cm-chessboard-eight-queens-puzzle#readme",
   "dependencies": {
-    "cm-chessboard": "^7.8.2",
-    "extreme-minimal-css": "^1.0.3"
+    "cm-chessboard": "^7.10.0",
+    "extreme-minimal-css": "^1.1.0"
   }
 }

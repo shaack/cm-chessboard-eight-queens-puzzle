@@ -73,4 +73,11 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .fx-won,
+    .fx-vanish {
+      animation: none;
+    }
+  }
+
 }

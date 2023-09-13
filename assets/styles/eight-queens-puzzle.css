@@ -53,4 +53,9 @@
     opacity: 0;
     scale: 2; } }
 
+@media (prefers-reduced-motion: reduce) {
+  .board-eight-queens .fx-won,
+  .board-eight-queens .fx-vanish {
+    animation: none; } }
+
 /*# sourceMappingURL=eight-queens-puzzle.css.map */
