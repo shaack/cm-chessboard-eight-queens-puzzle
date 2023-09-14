@@ -10,11 +10,19 @@ import {Position} from "cm-chessboard/src/model/Position.js"
 import {MOVE_CANCELED_REASON} from "cm-chessboard/src/view/VisualMoveInput.js"
 import {HtmlLayer} from "cm-chessboard/src/extensions/html-layer/HtmlLayer.js"
 
+export const GAME_EVENT_TYPE = {
+    move: "move",
+    createPiece: "createPiece",
+    removePiece: "removePiece",
+    won: "won"
+}
+
 export class EightQueensPuzzle extends Extension {
     constructor(chessboard, props = {}) {
         super(chessboard)
         this.props = {
-            wonText: "Very good<br/>you did it!"
+            wonText: "Very good<br/>you did it!", // the text that is shown when the puzzle is solved
+            onGameEvent: undefined // callback after each position change
         }
         Object.assign(this.props, props)
         chessboard.addExtension(Markers)
@@ -29,10 +37,24 @@ export class EightQueensPuzzle extends Extension {
                     case INPUT_EVENT_TYPE.moveInputCanceled:
                         if (event.reason === MOVE_CANCELED_REASON.movedOutOfBoard) {
                             this.chessboard.setPiece(event.squareFrom, null)
+                            if (this.props.onGameEvent) {
+                                this.props.onGameEvent({
+                                    position: this.chessboard.getPosition(),
+                                    type: GAME_EVENT_TYPE.removePiece
+                                })
+                            }
                         }
                         return true
                     case INPUT_EVENT_TYPE.validateMoveInput:
+                        if (this.props.onGameEvent) {
+                            this.props.onGameEvent({
+                                position: this.chessboard.getPosition(),
+                                type: GAME_EVENT_TYPE.move
+                            })
+                        }
                         return true
+                    case INPUT_EVENT_TYPE.moveInputFinished:
+
                 }
                 this.markThreatened()
             })
@@ -46,6 +68,12 @@ export class EightQueensPuzzle extends Extension {
             const pieces = this.chessboard.state.position.getPieces()
             if (pieces.length < 8) {
                 this.chessboard.setPiece(square, "bq")
+                if (this.props.onGameEvent) {
+                    this.props.onGameEvent({
+                        position: this.chessboard.getPosition(),
+                        type: GAME_EVENT_TYPE.createPiece
+                    })
+                }
                 this.markThreatened()
             }
         }
@@ -72,6 +100,12 @@ export class EightQueensPuzzle extends Extension {
             const pieces = this.chessboard.state.position.getPieces()
             if (pieces.length === 8) {
                 this.wonAnimation()
+                if (this.props.onGameEvent) {
+                    this.props.onGameEvent({
+                        position: this.chessboard.getPosition(),
+                        type: GAME_EVENT_TYPE.won
+                    })
+                }
             }
         }
     }

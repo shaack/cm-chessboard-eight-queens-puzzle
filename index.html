@@ -28,7 +28,13 @@
     new Chessboard(document.querySelector(".board-eight-queens"), {
         assetsUrl: "../node_modules/cm-chessboard/assets/",
         style: {showCoordinates: true},
-        extensions: [{class: EightQueensPuzzle}]
+        extensions: [{
+            class: EightQueensPuzzle, props: {
+                onGameEvent: (event) => {
+                    console.log("onGameEvent", event)
+                }
+            }
+        }]
     })
 </script>
 
