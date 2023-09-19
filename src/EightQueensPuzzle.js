@@ -21,45 +21,43 @@ export class EightQueensPuzzle extends Extension {
     constructor(chessboard, props = {}) {
         super(chessboard)
         this.props = {
-            wonText: "Very good<br/>you did it!", // the text that is shown when the puzzle is solved
+            wonText: "Very good,<br/>you did it!", // the text that is shown when the puzzle is solved
             onGameEvent: undefined // callback after each position change
         }
         Object.assign(this.props, props)
         chessboard.addExtension(Markers)
         chessboard.addExtension(HtmlLayer)
-        chessboard.initialized.then(() => {
-            this.clickListener = this.onSquareClick.bind(this)
-            chessboard.context.addEventListener("click", this.clickListener)
-            chessboard.enableMoveInput((event) => {
-                switch (event.type) {
-                    case INPUT_EVENT_TYPE.moveInputStarted:
-                        return true
-                    case INPUT_EVENT_TYPE.moveInputCanceled:
-                        if (event.reason === MOVE_CANCELED_REASON.movedOutOfBoard) {
-                            this.chessboard.setPiece(event.squareFrom, null)
-                            if (this.props.onGameEvent) {
-                                this.props.onGameEvent({
-                                    position: this.chessboard.getPosition(),
-                                    type: GAME_EVENT_TYPE.removePiece
-                                })
-                            }
-                        }
-                        return true
-                    case INPUT_EVENT_TYPE.validateMoveInput:
+        this.clickListener = this.onSquareClick.bind(this)
+        chessboard.context.addEventListener("click", this.clickListener)
+        chessboard.enableMoveInput((event) => {
+            switch (event.type) {
+                case INPUT_EVENT_TYPE.moveInputStarted:
+                    return true
+                case INPUT_EVENT_TYPE.moveInputCanceled:
+                    if (event.reason === MOVE_CANCELED_REASON.movedOutOfBoard) {
+                        this.chessboard.setPiece(event.squareFrom, null)
                         if (this.props.onGameEvent) {
                             this.props.onGameEvent({
                                 position: this.chessboard.getPosition(),
-                                type: GAME_EVENT_TYPE.move
+                                type: GAME_EVENT_TYPE.removePiece
                             })
                         }
-                        return true
-                    case INPUT_EVENT_TYPE.moveInputFinished:
+                    }
+                    return true
+                case INPUT_EVENT_TYPE.validateMoveInput:
+                    if (this.props.onGameEvent) {
+                        this.props.onGameEvent({
+                            position: this.chessboard.getPosition(),
+                            type: GAME_EVENT_TYPE.move
+                        })
+                    }
+                    return true
+                case INPUT_EVENT_TYPE.moveInputFinished:
 
-                }
-                this.markThreatened()
-            })
+            }
             this.markThreatened()
         })
+        this.markThreatened()
     }
 
     onSquareClick(event) {
