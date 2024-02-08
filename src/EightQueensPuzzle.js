@@ -18,6 +18,8 @@ export const GAME_EVENT_TYPE = {
 }
 
 export class EightQueensPuzzle extends Extension {
+
+    /** @constructor */
     constructor(chessboard, props = {}) {
         super(chessboard)
         this.props = {
