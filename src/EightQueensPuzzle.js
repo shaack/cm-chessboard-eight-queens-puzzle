@@ -80,33 +80,36 @@ export class EightQueensPuzzle extends Extension {
     }
 
     markThreatened() {
-        this.chessboard.removeMarkers()
-        let i = 0
-        let threadsFound = 0
-        for (let square of this.chessboard.state.position.squares) {
-            if (square) {
-                // mark all squares threatened by this piece
-                const rank = String.fromCharCode(97 + i % 8)
-                const file = Math.floor(i / 8) + 1
-                const square = "" + rank + file
-                if (this.isThreatened(square)) {
-                    this.chessboard.addMarker(MARKER_TYPE.circleDanger, square)
-                    threadsFound++
+        if(this.chessboard.getPosition() !== this.previousPosition) {
+            this.chessboard.removeMarkers()
+            let i = 0
+            let threadsFound = 0
+            for (let square of this.chessboard.state.position.squares) {
+                if (square) {
+                    // mark all squares threatened by this piece
+                    const rank = String.fromCharCode(97 + i % 8)
+                    const file = Math.floor(i / 8) + 1
+                    const square = "" + rank + file
+                    if (this.isThreatened(square)) {
+                        this.chessboard.addMarker(MARKER_TYPE.circleDanger, square)
+                        threadsFound++
+                    }
+                }
+                i++
+            }
+            if (threadsFound === 0) {
+                const pieces = this.chessboard.state.position.getPieces()
+                if (pieces.length === 8) {
+                    this.wonAnimation()
+                    if (this.props.onGameEvent) {
+                        this.props.onGameEvent({
+                            position: this.chessboard.getPosition(),
+                            type: GAME_EVENT_TYPE.won
+                        })
+                    }
                 }
             }
-            i++
-        }
-        if (threadsFound === 0) {
-            const pieces = this.chessboard.state.position.getPieces()
-            if (pieces.length === 8) {
-                this.wonAnimation()
-                if (this.props.onGameEvent) {
-                    this.props.onGameEvent({
-                        position: this.chessboard.getPosition(),
-                        type: GAME_EVENT_TYPE.won
-                    })
-                }
-            }
+            this.previousPosition = this.chessboard.getPosition()
         }
     }
 
