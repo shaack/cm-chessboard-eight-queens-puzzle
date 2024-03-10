@@ -24,10 +24,16 @@ export class EightQueensPuzzle extends Extension {
         super(chessboard)
         this.props = {
             wonText: "Very good,<br/>you did it!", // the text that is shown when the puzzle is solved
-            onGameEvent: undefined // callback after each position change
+            onGameEvent: undefined, // callback after each position change
+            markers: { // the markers used to show the moves and threats
+                moveInput: MARKER_TYPE.frame,
+                failure: MARKER_TYPE.circleDanger
+            }
         }
         Object.assign(this.props, props)
-        chessboard.addExtension(Markers)
+        chessboard.addExtension(Markers, {
+            autoMarkers: this.props.markers.moveInput
+        })
         chessboard.addExtension(HtmlLayer)
         this.clickListener = this.onSquareClick.bind(this)
         chessboard.context.addEventListener("click", this.clickListener)
@@ -91,7 +97,7 @@ export class EightQueensPuzzle extends Extension {
                     const file = Math.floor(i / 8) + 1
                     const square = "" + rank + file
                     if (this.isThreatened(square)) {
-                        this.chessboard.addMarker(MARKER_TYPE.circleDanger, square)
+                        this.chessboard.addMarker(this.props.markers.failure, square)
                         threadsFound++
                     }
                 }
