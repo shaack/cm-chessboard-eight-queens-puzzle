@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 import {INPUT_EVENT_TYPE} from "cm-chessboard/src/Chessboard.js"
-import {Extension} from "cm-chessboard/src/model/Extension.js"
+import {Extension, EXTENSION_POINT} from "cm-chessboard/src/model/Extension.js"
 import {MARKER_TYPE, Markers} from "cm-chessboard/src/extensions/markers/Markers.js"
 import {Position} from "cm-chessboard/src/model/Position.js"
 import {MOVE_CANCELED_REASON} from "cm-chessboard/src/view/VisualMoveInput.js"
@@ -60,12 +60,12 @@ export class EightQueensPuzzle extends Extension {
                         })
                     }
                     return true
-                case INPUT_EVENT_TYPE.moveInputFinished:
-
             }
+        })
+        // also called by the Chessboard constructor after the initial position is set
+        this.registerExtensionPoint(EXTENSION_POINT.positionChanged, () => {
             this.markThreatened()
         })
-        this.markThreatened()
     }
 
     onSquareClick(event) {
@@ -80,7 +80,6 @@ export class EightQueensPuzzle extends Extension {
                         type: GAME_EVENT_TYPE.createPiece
                     })
                 }
-                this.markThreatened()
             }
         }
     }
